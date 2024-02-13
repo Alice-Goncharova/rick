@@ -1,13 +1,15 @@
-import { EpisodeItem } from "./EpisodeItem";
+import { useState } from "react";
 import { Collapse } from "./Collapse";
-import { CharacterList } from "./CharacterList";
 import { useEpisodes } from "../hooks/useEpisodes";
-import { LocationList } from "./LocationList";
-import { useLocation } from "../hooks/useLocation";
-
 
 export const EpisodeList = () => {
   const { episodes } = useEpisodes();
+  const [openEpisodeId, setOpenEpisodeId] = useState(null);
+
+  const handleEpisodeClick = (episodeId) => {
+    setOpenEpisodeId(episodeId === openEpisodeId ? null : episodeId);
+  };
+
   return (
     <div>
       {episodes.map((episode) => (
@@ -16,16 +18,17 @@ export const EpisodeList = () => {
           className="episode"
           title={episode.episode + ":" + episode.name}
           content={
-            <>
-              <CharacterList
-                ids={episode.characters.map((character) => {
-                  const id = character.split("/").pop();
-                  return id;
-                })}
-              />
-              <LocationList /> // Добавленный компонент
-            </>
+            <div>
+              {episode.characters.map((character) => (
+                <div key={character.id}>
+                  <img src={character.image} alt={character.name} />
+                  <p>{character.name}</p>
+                </div>
+              ))}
+            </div>
           }
+          open={episode.id === openEpisodeId}
+          onClick={() => handleEpisodeClick(episode.id)}
         />
       ))}
     </div>

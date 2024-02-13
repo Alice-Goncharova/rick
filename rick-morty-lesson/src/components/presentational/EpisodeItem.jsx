@@ -13,8 +13,12 @@ export const EpisodeItem = ({ episode }) => {
     [episode?.characters]
   );
 
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
   return (
-    <div className="episode" onClick={() => setOpen(true)}>
+    <div className="episode" onClick={handleClick}>
       <h3>{episode.episode + ":" + episode.name}</h3>
       {open && <CharacterList ids={ids} />}
     </div>
