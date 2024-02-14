@@ -3,7 +3,7 @@ import { Collapse } from "./Collapse";
 import { CharacterList } from "./CharacterList";
 import { useEpisodes } from "../hooks/useEpisodes";
 import { LocationList } from "./LocationList";
-import { useLocation } from "../hooks/useLocation";
+import { useLocations } from "../hooks/useLocation";
 
 
 export const EpisodeList = () => {
@@ -23,7 +23,6 @@ export const EpisodeList = () => {
                   return id;
                 })}
               />
-              <LocationList /> // Добавленный компонент
             </>
           }
         />
